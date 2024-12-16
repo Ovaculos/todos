@@ -28,8 +28,12 @@ export function Main({ todos, setTodos, setModalTodo, openModal, deleteLocalTodo
   };
 
   const deleteTodo = async (id: number) => {
-    const deleted = await todoService.deleteTodo(id);
-    if (deleted) deleteLocalTodo(id);
+    try {
+      await todoService.deleteTodo(id);
+      deleteLocalTodo(id);
+    } catch (error: unknown) {
+      if (error instanceof Error) throw new Error(`That todo was not on the server`)
+    }
   }
 
   return (

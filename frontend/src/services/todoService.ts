@@ -38,7 +38,6 @@ const editTodo = async (id: number, newProps: PartialTodo) => {
 const deleteTodo = async (id: number) => {
   try {
     await axios.delete(`${baseUrl}/${id}`);
-    return true
   } catch (error: unknown) {
     if (error instanceof Error) throw new Error(`Todo with id ${id} doesn't exist`)
   }
